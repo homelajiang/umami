@@ -1,4 +1,4 @@
-name: umami(https://github.com/mikecao/umami) CI
+name: umami CI
 
 on:
   push:
@@ -13,8 +13,7 @@ jobs:
       - name: Setup Node.js environment.
         uses: actions/setup-node@v1
         with:
-          node-version:12
-      - name: Clone latest code.
+          node-version: 12
         run : |
           git clone https://github.com/mikecao/umami.git
           cp .env /umami
