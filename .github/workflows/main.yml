@@ -31,13 +31,13 @@ jobs:
       #   run: npm run build
 
       - name: Stop umami service
-        uses: garygrossgarten/github-action-ssh@v0.6.3
+        uses: appleboy/ssh-action@master
         with:
-          command: pm2 status
+          script: pm2 status
           host: ${{ secrets.REMOTE_HOST }}
           port: ${{ secrets.REMOTE_PORT }}
           username: ${{ secrets.REMOTE_USER }}
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       # - name: Deploy to hosting.
       #   uses: easingthemes/ssh-deploy@v2.1.5
