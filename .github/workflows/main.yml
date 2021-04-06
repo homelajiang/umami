@@ -52,6 +52,7 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: | 
+            echo "I am $PRODUCTION_DIR"
             cd $PRODUCTION_DIR
             ls -al
             # npm install
