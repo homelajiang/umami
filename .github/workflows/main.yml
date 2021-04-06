@@ -2,7 +2,7 @@ name: umami(https://github.com/mikecao/umami) CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   # schedule:
     # - cron: '0 20 * * */1'
 
