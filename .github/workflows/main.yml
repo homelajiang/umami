@@ -24,9 +24,10 @@ jobs:
           cp ./.env ./umami-latest/
           cd umami-latest
           ls -al
+          npm ci
 
-      - name: Install dependencies.
-        run: npm ci
+      # - name: Install dependencies.
+        # run: npm ci
 
       - name: Build App.
         run: npm run build
