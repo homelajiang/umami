@@ -19,14 +19,14 @@ jobs:
 
       - name: Clone latest code.
         run : |
-          git clone https://github.com/mikecao/umami.git
+          git clone https://github.com/mikecao/umami.git umami-latest
           ls -al
-          cp ./.env ./umami/
-          cd umami
+          cp ./.env ./umami-latest/
+          cd umami-latest
           ls -al
 
       - name: Install dependencies.
-        run: npm install
+        run: npm ci
 
       - name: Build App.
         run: npm run build
