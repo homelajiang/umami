@@ -23,7 +23,6 @@ jobs:
           rm -rf .git/ .github/
           mv umami/* ./
           rm -r umami/
-          ls -al
 
       - name: Install dependencies.
         run: npm install
