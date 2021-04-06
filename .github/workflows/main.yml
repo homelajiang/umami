@@ -46,6 +46,7 @@ jobs:
         uses: appleboy/ssh-action@master
         env:
           PRODUCTION_DIR: ${{ secrets.TARGET }}
+          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
           host: ${{ secrets.REMOTE_HOST }}
           port: ${{ secrets.REMOTE_PORT }}
@@ -53,6 +54,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: | 
             echo "I am $PRODUCTION_DIR"
+            echo "I am $KEY"
             cd $PRODUCTION_DIR
             ls -al
             # npm install
