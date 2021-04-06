@@ -1,8 +1,10 @@
 name: umami(https://github.com/mikecao/umami) CI
 
 on:
-  schedule:
-    - cron: '0 20 * * */1'
+  push:
+    branches: [ master ]
+  # schedule:
+    # - cron: '0 20 * * */1'
 
 jobs:
   deplyUmami:
