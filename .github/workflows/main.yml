@@ -52,6 +52,7 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: PRODUCTION_DIR,KEY
           script: | 
             echo "I am $PRODUCTION_DIR"
             echo "I am $KEY"
