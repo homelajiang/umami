@@ -21,7 +21,8 @@ jobs:
         run : |
           git clone https://github.com/mikecao/umami.git
           rm -rf .git/ .github/
-          mv -r umami/* ./
+          mv umami/* ./
+          rm -r umami/
           ls -al
 
       - name: Install dependencies.
