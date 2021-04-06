@@ -14,11 +14,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-          
+
       - name: Clone latest code.
         run : |
           git clone https://github.com/mikecao/umami.git
-          cp .env /umami
+          ls -al
+          cp ./.env ./umami/
           cd umami
 
       - name: Install dependencies.
