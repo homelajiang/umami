@@ -1,10 +1,10 @@
 name: umami CI
 
 on:
-  push:
-    branches: [ main ]
-  # schedule:
-    # - cron: '0 20 * * */1'
+  # push:
+  #   branches: [ main ]
+  schedule:
+    - cron: '0 20 * * */1'
 
 jobs:
   deplyUmami:
