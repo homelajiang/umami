@@ -55,4 +55,5 @@ jobs:
           script: | 
             cd $PRODUCTION_DIR
             npm install
+            npm run build-db
             pm2 restart umami
