@@ -44,13 +44,15 @@ jobs:
 
       - name: Reload umami service
         uses: appleboy/ssh-action@master
+        env:
+          PRODUCTION_DIR: ${{ secrets.TARGET }}
         with:
           host: ${{ secrets.REMOTE_HOST }}
           port: ${{ secrets.REMOTE_PORT }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: | 
-            cd ${{ secrets.TARGET }}
+            cd $PRODUCTION_DIR
             ls -al
             # npm install
             # pm2 restart umami
