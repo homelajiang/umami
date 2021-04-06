@@ -10,52 +10,45 @@ jobs:
   deplyUmami:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      # - name: Setup Node.js environment.
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: 12
+      - name: Setup Node.js environment.
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
 
-      # - name: Clone latest code.
-      #   run : |
-      #     git clone https://github.com/mikecao/umami.git
-      #     rm -rf .git/ .github/
-      #     cp -r umami/* ./
-      #     ls -al
+      - name: Clone latest code.
+        run : |
+          git clone https://github.com/mikecao/umami.git
+          rm -rf .git/ .github/
+          cp -r umami/* ./
+          ls -al
 
-      # - name: Install dependencies.
-      #   run: npm install
+      - name: Install dependencies.
+        run: npm install
 
-      # - name: Build App.
-      #   run: npm run build
+      - name: Build App.
+        run: npm run build
 
-      - name: Stop umami service
+      - name: Deploy to hosting.
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rltgoDzvO --delete"
+          # SOURCE: "docs/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.TARGET}}
+          EXCLUDE: /node_modules/
+
+      - name: Reload umami service
         uses: appleboy/ssh-action@master
         with:
-          script: pm2 status
           host: ${{ secrets.REMOTE_HOST }}
           port: ${{ secrets.REMOTE_PORT }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      # - name: Deploy to hosting.
-      #   uses: easingthemes/ssh-deploy@v2.1.5
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     ARGS: "-rltgoDzvO --delete"
-      #     # SOURCE: "docs/"
-      #     REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-      #     REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-      #     REMOTE_USER: ${{ secrets.REMOTE_USER }}
-      #     TARGET: ${{ secrets.TARGET}}
-      #     EXCLUDE: /node_modules/,/.git/
-
-      # - name: Restart pm2 service
-      #   uses: garygrossgarten/github-action-ssh@v0.6.3
-      #   with:
-      #     command: pm2 restart umami
-      #     host: ${{ secrets.REMOTE_HOST }}
-      #     port: ${{ secrets.REMOTE_PORT }}
-      #     username: ${{ secrets.REMOTE_USER }}
-      #     privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: | 
+            npm run build
+            pm2 restart umami
